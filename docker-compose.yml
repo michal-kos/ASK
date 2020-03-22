@@ -1,0 +1,59 @@
+version: "3.6"
+services:
+  ask_openldap:
+    image: osixia/openldap
+    #container_name: ask_openldap
+    environment:
+      LDAP_TLS: 'true'
+      LDAP_TLS_CRT_FILENAME: 'fullchain.pem'
+      LDAP_TLS_KEY_FILENAME: 'privkey.pem'
+      LDAP_TLS_CA_CRT_FILENAME: 'fullchain.pem'
+      LDAP_ORGANISATION: "ASKproject"
+      LDAP_DOMAIN: "askproject.com"
+      LDAP_BASE_DN: "dc=askproject,dc=com"
+      LDAP_ADMIN_PASSWORD: "admin"
+      LDAP_TLS_CIPHER_SUITE: "NORMAL"
+      LDAP_TLS_VERIFY_CLIENT: "allow"
+    tty: true
+    stdin_open: true
+    volumes:
+      - /var/lib/ldap
+      - /etc/ldap/slapd.d
+      - /container/service/slapd/assets/certs/
+    ports:
+      - "389:389"
+      - "639:639"
+    #hostname: "askproject.com"
+  ask_phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    #container_name: ask_phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: ask_openldap
+      PHPLDAPADMIN_HTTPS=false:
+    ports:
+      - "8080:80"
+    depends_on:
+      - ask_openldap
+  ask_tickets:
+    image: askproject:dev
+    working_dir: "/usr/src/app"
+    command: ["npm run app"]
+    environment:
+      - ASKPROJECT_RUNNING_SERVICE=tickets
+    volumes:
+      - ./src:/usr/src/app/src
+    depends_on:
+      - database
+      - ask_openldap
+    expose:
+      - 80
+  database:
+    image: mongo:4.0.9
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: askproject
+      MONGO_NON_ROOT_USERNAME: askproject
+      MONGO_NON_ROOT_PASSWORD: askprojecttest
+    volumes:
+      - ./mongo-init.sh:/docker-entrypoint-initdb.d/init.sh
