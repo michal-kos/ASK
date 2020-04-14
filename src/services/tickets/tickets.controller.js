@@ -6,7 +6,7 @@ const ticketService = require('./tickets.service')
 
 module.exports = {
     bind: function (server) {
-        server.post('/ticket/register', register)
+        server.post('/ticket/create', create)
         server.get('/tickets', getAll)
         server.get('/ticket/:id', getById)
         server.put('/ticket/:id', update)
@@ -50,7 +50,7 @@ module.exports = {
  *     "message": <reason>
  *   }
  */
-function register(req, res, next) {
+function create(req, res, next) {
     ticketService.create(req.body)
         .then(ticket => res.status(201).send(ticket))
         .catch(err => res.status(422).send({"message": err}))
