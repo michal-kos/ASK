@@ -24,16 +24,16 @@ services:
       - "389:389"
       - "639:639"
     #hostname: "askproject.com"
-  # ask_phpldapadmin:
-  #   image: osixia/phpldapadmin:latest
-  #   #container_name: ask_phpldapadmin
-  #   environment:
-  #     PHPLDAPADMIN_LDAP_HOSTS: ask_openldap
-  #     PHPLDAPADMIN_HTTPS=false:
-  #   ports:
-  #     - "8080:80"
-  #   depends_on:
-  #     - ask_openldap
+  ask_phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    #container_name: ask_phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: ask_openldap
+      PHPLDAPADMIN_HTTPS=false:
+    ports:
+      - "8080:80"
+    depends_on:
+      - ask_openldap
   ask_tickets:
     image: askproject:dev
     working_dir: "/usr/src/app"
