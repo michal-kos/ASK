@@ -34,7 +34,7 @@ services:
       - "8080:80"
     depends_on:
       - ask_openldap
-  ask_tickets:
+  ask_tickets: &microservice_template
     image: askproject:dev
     working_dir: "/usr/src/app"
     command: ["npm run app"]
@@ -51,6 +51,13 @@ services:
       - "traefik.enable=true"
     expose:
       - 80
+  ask_auth:
+    <<: *microservice_template
+    environment:
+      - ASKPROJECT_RUNNING_SERVICE=auth
+    labels:
+      - "traefik.http.routers.taisr2.rule=PathPrefix(`/auth`)"
+      - "traefik.enable=true"
   database:
     image: mongo:4.0.9
     environment:
