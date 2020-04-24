@@ -22,7 +22,7 @@ passport.use(new JWTStrategy({
     secretOrKey : 'your_jwt_secret'
     },
     function (jwtPayload, cb){
-        
-        return cb(null, true)
+        console.log(jwtPayload)
+        return cb(null, jwtPayload)
     }
 ));

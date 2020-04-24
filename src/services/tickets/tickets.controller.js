@@ -4,36 +4,18 @@
 
 const ticketService = require('./tickets.service')
 var passport = require('passport')
-// require('jsonwebtoken');
-// require('./pass');
-// require('./index');
 
 const unAuthMsg = 'You are not authorized for this endpoint.';
 
-// const ensureAuthenticated = (req, res, next) => {
-// if (req.isAuthenticated()) {
-//     next();
-// } else {
-//     res.status(401).json({"message": unAuthMsg});
-// }
-// };
-
 module.exports = {
     bind: function (server) {
-        //server.post('/tickets/login', login)
-        server.post('/ticket/create', create)
+        server.post('/ticket/create', passport.authenticate('jwt', {session: false}), create)
         server.get('/tickets', passport.authenticate('jwt', {session: false}), getAll)
-        server.get('/ticket/:id', getById)
-        server.put('/ticket/:id', update)
-        server.delete('/ticket/:id', _delete)
+        server.get('/ticket/:id', /*passport.authenticate('jwt', {session: false}),*/ getById)
+        server.put('/ticket/:id', passport.authenticate('jwt', {session: false}), update)
+        server.delete('/ticket/:id', passport.authenticate('jwt', {session: false}), _delete)
     }
 }
-
-// function login(req, res, next) {
-//     ticketService.login(req.body)
-//         .then(ticket => res.status(201).send(ticket))
-//         .catch(err => res.status(422).send({"message": err}))
-// }
 
 /**
  * @api {post} /tickets/register Register new tickets

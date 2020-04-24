@@ -3,7 +3,6 @@
  */
 
 var express = require('express');
-var router  = express.Router();
 var jwt = require('jsonwebtoken');
 var passport = require("passport");
 
@@ -19,7 +18,7 @@ module.exports = {
             passport.authenticate('ldapauth', {session: false}, (err, user, info) => {
                 if (err || !user) {
                     return res.status(400).json({
-                        message: err,//'Something is not right',
+                        message: err,
                         user   : user,
                         info : info
                     });
@@ -28,8 +27,8 @@ module.exports = {
                     if (err) {
                         res.send(err);
                     }
-                    // generate a signed son web token with the contents of user object and return it in the response
-                    const token = jwt.sign(user, 'your_jwt_secret', {expiresIn});
+                    // generate a signed json web token with the contents of user object and return it in the response
+                    const token = jwt.sign(user, 'your_jwt_secret', {expiresIn: '30s'});
                     console.log(user)
                     return res.json({user, token});
                 });
@@ -37,13 +36,8 @@ module.exports = {
         });
 
         server.get('/auth/test', passport.authenticate('jwt', {session: false}), (req, res) => {
-            return res.status(200).send({ "message": "ack" })
+            console.log(req.user.gidNumber)
+            return res.status(200).send({ "user gidNumber: ": req.user.gidNumber })
         })
-
-        server.get('/logout', function(req, res){
-            req.logout();
-        })
-
-
     }
   }

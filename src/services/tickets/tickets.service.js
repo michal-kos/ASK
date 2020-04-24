@@ -7,7 +7,6 @@ module.exports = {
     bind: function (database) {
         Tickets = database.collection('tickets')
     },
-    //login,
     getAll,
     getById,
     create,
@@ -15,16 +14,9 @@ module.exports = {
     delete: _delete
 }
 
-// async function login(ticketParam) {
-//     const ticket = new Ticket(ticketParam)
-    
-//     return await ticket.save()
-// }
-
 async function getAll(query) {
     let allowedFilters = ["_id", "project_id", "reporter", "assignee", "creator", "issue_type", "environment", "priority", "resoulution", "issue_status", "creation_date", "due_date", "resolution_date", "watches"]
     let filters = {}
-
     Object.keys(query).forEach(key => {
         if (allowedFilters.includes(key)) {
             switch (key) {
