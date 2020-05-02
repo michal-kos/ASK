@@ -17,7 +17,6 @@ module.exports = {
 async function getAll(query) {
     let allowedFilters = ["_id", "project_id", "reporter", "assignee", "creator", "issue_type", "environment", "priority", "resoulution", "issue_status", "creation_date", "due_date", "resolution_date", "watches"]
     let filters = {}
-
     Object.keys(query).forEach(key => {
         if (allowedFilters.includes(key)) {
             switch (key) {

@@ -7,13 +7,17 @@ require('dotenv').config()
 const express = require('express')
 const dbClient = require('./misc/database')
 const promiseRetry = require('promise-retry')
+var bodyParser = require( 'body-parser' )
+
+require('./services/auth/pass.js')
 
 /**
  * Defines allowed/possible micro services running with this app
- * @type {{appointments: *, users: *, auth: *}}
+ * @type {{tickets: *, auth: *}}
  */
 const availableServices = {
   tickets: require('./services/tickets/index.js'),
+  auth: require('./services/auth/index.js')
 }
 
 if (!process.env.ASKPROJECT_RUNNING_SERVICE || !Object.keys(availableServices).includes(process.env.ASKPROJECT_RUNNING_SERVICE)) {
@@ -33,6 +37,13 @@ promiseRetry(function (retry, number) {
   const port = process.env.ASKPROJECT_APP_PORT || 80
 
   server.use(express.json())
+  // const auth = require('./services/auth/index.js')
+  // server.use('/auth', auth);
+  server.use(bodyParser.urlencoded({ extended: true}))
+  server.use(function (req, res, next) {
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+      next();
+  });
   availableServices[process.env.ASKPROJECT_RUNNING_SERVICE].bind(server, db);
   server.listen(port, () => console.log(`App listening on port ${port}!`))
 }, (err) => {
