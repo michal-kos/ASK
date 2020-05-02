@@ -1,10 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const schema = new Schema({
-    reporter: { type: String, required: true, default: function() { return this.creator; } },
+const commentSchema = new Schema({
+    author_id: { type: String, required: true },
+    author_display_name: { type: String, required: true },
+    body: { type: String, required: true },
+    creation_date: { type: Date, default: Date.now }
+}, { id: false });
+
+const ticketSchema = new Schema({
     assignee: { type: String, required: false },
-    creator: { type: String, required: true, },
+    creator_id: { type: String, required: true },
+    creator_display_name: { type: String, required: true },
     issue_type: { type: String, required: false },
     summary: { type: String, required: true },
     description: { type: String, required: false },
@@ -13,7 +20,7 @@ const schema = new Schema({
     resolution: { type: String, required: false },
     issue_status: { type: String, required: false },
     creation_date: { type: Date, default: Date.now },
-    updated_date: { type: Date, default: Date.now },
+    update_date: { type: Date, default: Date.now },
     due_date: { type: Date, required: false },
     resolution_date: { type: Date, required: false },
     watches: { type: Number, required: false },
@@ -21,11 +28,12 @@ const schema = new Schema({
     time_estimate: { type: Number, required: false },
     time_spent: { type: Number, required: false },
     fix_for: { type: Number, required: false },
+    comments: [commentSchema]
 }, { id: false });
 
-schema.set('toJSON', { virtuals: true });
+ticketSchema.set('toJSON', { virtuals: true });
 
-module.exports = mongoose.model('Ticket', schema);
+module.exports = mongoose.model('Ticket', ticketSchema);
 
 // +----------------------+---------------+------+-----+---------+-------+
 // | Field                | Type          | Null | Key | Default | Extra |

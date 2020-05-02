@@ -1,437 +1,10 @@
 {
 	"info": {
-		"_postman_id": "417e5c00-8f3d-478f-b169-22027a3cc8b3",
+		"_postman_id": "07aa7af5-b3f6-4e56-bd6c-316234fe8a73",
 		"name": "ASK",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
-		{
-			"name": "AppointmentsService",
-			"item": [
-				{
-					"name": "All slots",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "56ed7875-9147-45ad-a94d-14fc15a6df0f",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an array\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('array');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    for (i = 0; i < jsonResponse.length; i++) {",
-									"        pm.expect(jsonResponse[i]._id).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].employee_id).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].start_date).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].end_date).to.be.a('string');",
-									"    }",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/slots",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"slots"
-							],
-							"query": [
-								{
-									"key": "employeeId",
-									"value": "5dcc5e7f04b0e23652101562",
-									"disabled": true
-								},
-								{
-									"key": "after",
-									"value": "2018-12-30",
-									"disabled": true
-								},
-								{
-									"key": "before",
-									"value": "2020-01-01",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Slot by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b805a4cc-c92a-4434-8845-cf0185449604",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"    pm.expect(jsonResponse.employee_id).to.be.a('string');",
-									"    pm.expect(jsonResponse.start_date).to.be.a('string');",
-									"    pm.expect(jsonResponse.end_date).to.be.a('string');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/slot/:slot_id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"slot",
-								":slot_id"
-							],
-							"variable": [
-								{
-									"key": "slot_id",
-									"value": "5df13e0f91e4f60084bccf73",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add slot",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f3ce43f5-ae74-44d8-bb20-0b1430ed5a65",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"    pm.expect(jsonResponse.employee_id).to.be.a('string');",
-									"    pm.expect(jsonResponse.start_date).to.be.a('string');",
-									"    pm.expect(jsonResponse.end_date).to.be.a('string');",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"employee_id\": \"5defbe819a3b4a0030c991f7\",\n\t\"start_date\": \"2019-12-13T09:30:00.000+00:00\",\n\t\"end_date\": \"2019-12-13T10:45:00.000+00:00\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/slot",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"slot"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete slot",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d5fffc00-fc13-4b89-91c6-d158224c6c5c",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/slot/:id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"slot",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "5df13d6a792cd20076c197a7",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "All appointments",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "94de544f-aee8-407f-ad28-a9ed0ea15ad2",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an array\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('array');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    for (i = 0; i < jsonResponse.length; i++) {",
-									"        pm.expect(jsonResponse[i]._id).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].patient_id).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].slot_id).to.be.a('string');",
-									"        if (jsonResponse[i].slots) {",
-									"            pm.expect(jsonResponse[i].slot).to.be.a('object');",
-									"            pm.expect(jsonResponse[i].slot._id).to.be.a('string');",
-									"            pm.expect(jsonResponse[i].slot.employee_id).to.be.a('string');",
-									"            pm.expect(jsonResponse[i].slot.start_date).to.be.a('string');",
-									"            pm.expect(jsonResponse[i].slot.end_date).to.be.a('string');",
-									"        }",
-									"    }",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/appointments",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"appointments"
-							],
-							"query": [
-								{
-									"key": "patient_id",
-									"value": "5dcc5e6a3139ff365223fb0c",
-									"disabled": true
-								},
-								{
-									"key": "employee_id",
-									"value": "5dcc5e1c04b0e23652101561",
-									"disabled": true
-								},
-								{
-									"key": "after",
-									"value": "2018-12-30",
-									"disabled": true
-								},
-								{
-									"key": "before",
-									"value": "2020-01-01",
-									"disabled": true
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add appointment",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "f957a0c7-5ace-479b-9576-52ef28b89ef4",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse.patient_id).to.be.a('string');",
-									"    pm.expect(jsonResponse.slot_id).to.be.a('string');",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"patient_id\": \"5dcc5e6a3139ff365223fb0c\",\n\t\"slot_id\": \"5df13e4f30a251009c0eba49\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/appointment",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"appointment"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete appointment",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "626a6c5e-19f3-4f83-858f-4aba5ecefde1",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/appointment/:id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"appointment",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "5df0cf648db6c300a6a705ef",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"id": "31d58e27-fadc-4790-a25e-09a2a5ec2ff0",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"id": "c9bf524c-690c-4a3e-a79b-f94443c7fa0f",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
 		{
 			"name": "AuthService",
 			"item": [
@@ -443,27 +16,7 @@
 							"script": {
 								"id": "b70aab6a-65aa-496d-a2f8-9e3d7bfca24a",
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var jsonData = pm.response.json();",
-									"pm.environment.set(\"token\", jsonData.token);",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse.token).to.be.a('string');",
-									"    pm.expect(jsonResponse.creation_date).to.be.a('string');",
-									"});"
+									"var jsonData = pm.response.json(); pm.environment.set(\"token\", jsonData.token);"
 								],
 								"type": "text/javascript"
 							}
@@ -480,16 +33,28 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"email_address\": \"{{example_email}}\",\n\t\"password\": \"{{example_password}}\"\n}"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "ttestowy",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "test1234",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
-							"raw": "{{base_url}}/auth",
+							"raw": "{{base_url}}/auth/login",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"auth"
+								"auth",
+								"login"
 							]
 						}
 					},
@@ -538,508 +103,6 @@
 							],
 							"path": [
 								"token"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "UsersService",
-			"item": [
-				{
-					"name": "All users",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "e9e4e85e-41a5-40a4-9d12-223d4dd39a44",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an array\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('array');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    for (i = 0; i < jsonResponse.length; i++) {",
-									"        pm.expect(jsonResponse[i]._id).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].first_name).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].last_name).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].email_address).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].account_type).to.be.a('number');",
-									"        pm.expect(jsonResponse[i].address).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].password).to.be.a('string');",
-									"        pm.expect(jsonResponse[i].creation_date).to.be.a('string');",
-									"        if (jsonResponse[i].patient_history) {",
-									"            pm.expect(jsonResponse[i].patient_history).to.be.a('array');",
-									"            for (j = 0; j < jsonResponse[i].patient_history.length; j++) {",
-									"                pm.expect(jsonResponse[i].patient_history[j]._id).to.be.a('string');",
-									"                pm.expect(jsonResponse[i].patient_history[j].patient_id).to.be.a('string');",
-									"                pm.expect(jsonResponse[i].patient_history[j].value).to.be.a('string');",
-									"                pm.expect(jsonResponse[i].patient_history[j].__v).to.be.a('number');",
-									"            }",
-									"        }",
-									"    }",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/users",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"users"
-							],
-							"query": [
-								{
-									"key": "account_type",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "before",
-									"value": "2018-12-30",
-									"disabled": true
-								},
-								{
-									"key": "after",
-									"value": "2020-01-01",
-									"disabled": true
-								}
-							]
-						},
-						"description": "Endpoint also accepts few filter options:\n- (int) account_type: \n\t- 0 - patient\n\t- 1 - employee\n\t- 2 - admin\n- (date) after: user created after provided date \n- (date) before: user created before provided date"
-					},
-					"response": []
-				},
-				{
-					"name": "User by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "be4669cb-83fe-49fd-ae39-8b16c64a0fca",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"    pm.expect(jsonResponse.first_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.last_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.email_address).to.be.a('string');",
-									"    pm.expect(jsonResponse.account_type).to.be.a('number');",
-									"    pm.expect(jsonResponse.address).to.be.a('string');",
-									"    pm.expect(jsonResponse.password).to.be.a('string');",
-									"    pm.expect(jsonResponse.creation_date).to.be.a('string');",
-									"    if (jsonResponse.patient_history) {",
-									"        pm.expect(jsonResponse.patient_history).to.be.a('array');",
-									"        for (i = 0; i < jsonResponse.patient_history.length; i++) {",
-									"            pm.expect(jsonResponse.patient_history[i]._id).to.be.a('string');",
-									"            pm.expect(jsonResponse.patient_history[i].patient_id).to.be.a('string');",
-									"            pm.expect(jsonResponse.patient_history[i].value).to.be.a('string');",
-									"            pm.expect(jsonResponse.patient_history[i].__v).to.be.a('number');",
-									"        }",
-									"    }",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/user/:id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "5df131e10d15a2021a265b2d",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Register user",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "53c56072-805f-4bcb-a5a5-c2fa5f535345",
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {",
-									"    pm.response.to.have.status(201);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Login is equal to provided\", function () {",
-									"    pm.expect(jsonResponse.email_address).to.eql(pm.environment.get(\"email_address\"));",
-									"});",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"    pm.expect(jsonResponse.first_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.last_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.email_address).to.be.a('string');",
-									"    pm.expect(jsonResponse.account_type).to.be.a('number');",
-									"    pm.expect(jsonResponse.address).to.be.a('string');",
-									"    pm.expect(jsonResponse.password).to.be.a('string');",
-									"    pm.expect(jsonResponse.creation_date).to.be.a('string');",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "dae6323e-a3fd-4854-b1ac-f5c4e81724c1",
-								"exec": [
-									"var random = Math.random().toString(36).substring(2)",
-									"var emailAddress = random + \"@gmail.com\"",
-									"",
-									"pm.environment.set(\"email_address\", emailAddress);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"first_name\": \"Jakub\",\n    \"last_name\": \"Bochenek\",\n    \"email_address\":\"{{email_address}}\",\n    \"account_type\": \"2\",\n    \"address\": \"ul.Krakowska 12 Tarnów\",\n    \"password\": \"Test1234\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/user/register",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Edit user with ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "8e7e60cb-2643-470d-bf4e-d57ca40f3a76",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse.first_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.last_name).to.be.a('string');",
-									"    pm.expect(jsonResponse.email_address).to.be.a('string');",
-									"    pm.expect(jsonResponse.account_type).to.be.a('number');",
-									"    pm.expect(jsonResponse.address).to.be.a('string');",
-									"    pm.expect(jsonResponse.password).to.be.a('string');",
-									"    pm.expect(jsonResponse.creation_date).to.be.a('string');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"first_name\": \"Jakub\",\n    \"last_name\": \"Bochenek\",\n    \"email_address\": \"jakub.bochenek@interia.com\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/user/:user_id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								":user_id"
-							],
-							"variable": [
-								{
-									"id": "32c87a7f-7e5d-48e3-864f-faf38f939a41",
-									"key": "user_id",
-									"value": "5df131e10d15a2021a265b2d",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Remove user with ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "9095ce23-9497-41e1-9c24-14d6ef4627d3",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{base_url}}/user/:user_id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								":user_id"
-							],
-							"variable": [
-								{
-									"id": "6516fa5a-020b-485e-b389-e9e8e3a522ea",
-									"key": "user_id",
-									"value": "5defd4a5d3946e0278091af7",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update patient history entry with ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "d752f333-08d3-40f1-91df-a1363a374da5",
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"let jsonResponse = pm.response.json();",
-									"",
-									"pm.test(\"Value is equal to provided\", function () {",
-									"    pm.expect(jsonResponse.value).to.eql(pm.environment.get(\"value\"));",
-									"});",
-									"",
-									"pm.test(\"Response should be a parsable JSON\", function() {",
-									"    pm.expect(jsonResponse).to.be.ok;",
-									"});",
-									"",
-									"pm.test(\"Response body should be an object\", function() {",
-									"    pm.expect(jsonResponse).to.be.an('object');",
-									"});",
-									"",
-									"pm.test(\"Response body should be in the correct format\", function() {",
-									"    pm.expect(jsonResponse._id).to.be.a('string');",
-									"    pm.expect(jsonResponse.patient_id).to.be.a('string');",
-									"    pm.expect(jsonResponse.value).to.be.a('string');",
-									"    pm.expect(jsonResponse.__v).to.be.a('number');",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "c4713949-5908-4b2d-9aa9-6360b29c7e49",
-								"exec": [
-									"var random = Math.random().toString(36).substring(2)",
-									"var value = random",
-									"",
-									"pm.environment.set(\"value\", value);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"value\": \"{{value}}\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/user/:user_id/patient_history/:entry_id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								":user_id",
-								"patient_history",
-								":entry_id"
-							],
-							"variable": [
-								{
-									"id": "1e1a7dd3-b87b-4254-82d7-f90c84519f3e",
-									"key": "user_id",
-									"value": "5df131e10d15a2021a265b2d",
-									"type": "string"
-								},
-								{
-									"id": "df0ec317-9543-4260-85ca-0d9b20d1abba",
-									"key": "entry_id",
-									"value": "5df131ea0d15a2021a265b2e",
-									"type": "string"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete patient history entry with ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c67d35eb-c67a-4d81-a612-7804e07ac1f2",
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {",
-									"    pm.response.to.have.status(204);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{base_url}}/user/:user_id/patient_history/:entry_id",
-							"host": [
-								"{{base_url}}"
-							],
-							"path": [
-								"user",
-								":user_id",
-								"patient_history",
-								":entry_id"
-							],
-							"variable": [
-								{
-									"id": "674f5599-db84-41aa-b86a-96d1f01b2aef",
-									"key": "user_id",
-									"value": "5df131e10d15a2021a265b2d",
-									"type": "string"
-								},
-								{
-									"id": "3142ca59-de07-4ef6-a648-8b2c71481dfb",
-									"key": "entry_id",
-									"value": "5df131ea0d15a2021a265b2e",
-									"type": "string"
-								}
 							]
 						}
 					},
@@ -1183,19 +246,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}/ticket/:id",
+							"raw": "{{base_url}}/tickets/:id",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"ticket",
+								"tickets",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"type": "string",
-									"value": "5df131e10d15a2021a265b2d"
+									"value": "5e95eb472360fc005e514e91"
 								}
 							]
 						}
@@ -1269,15 +331,15 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"creator\": \"Jakub Kowalski\",\n    \"summary\": \"Testowy issue\",\n    \"environment\":\"IOS\",\n    \"priority\": \"Critical\"\n}"
+							"raw": "{\n    \"summary\": \"Testowy issue\",\n    \"environment\":\"IOS\",\n    \"priority\": \"Critical\"\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/ticket/create",
+							"raw": "{{base_url}}/tickets/create",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"ticket",
+								"tickets",
 								"create"
 							]
 						}
@@ -1332,21 +394,21 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"first_name\": \"Jakub\",\n    \"last_name\": \"Bochenek\",\n    \"email_address\": \"jakub.bochenek@interia.com\"\n}"
+							"raw": "{\n    \"summary\": \"Testowy issue update\"\n}"
 						},
 						"url": {
-							"raw": "{{base_url}}/ticket/:ticket_id",
+							"raw": "{{base_url}}/tickets/:ticket_id",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"ticket",
+								"tickets",
 								":ticket_id"
 							],
 							"variable": [
 								{
 									"key": "ticket_id",
-									"value": ""
+									"value": "5ead6f22f52479023edad2b6"
 								}
 							]
 						}
@@ -1384,18 +446,111 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "{{base_url}}/ticket/:ticket_id",
+							"raw": "{{base_url}}/tickets/:ticket_id",
 							"host": [
 								"{{base_url}}"
 							],
 							"path": [
-								"ticket",
+								"tickets",
 								":ticket_id"
 							],
 							"variable": [
 								{
 									"key": "ticket_id",
-									"value": ""
+									"value": "5ead663a39e67100481685b1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\":\"Test komentarza\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tickets/:ticket_id/comment",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tickets",
+								":ticket_id",
+								"comment"
+							],
+							"variable": [
+								{
+									"key": "ticket_id",
+									"value": "5ead66c3217ecc00643c5c2a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit comment with ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\":\"Test komentarza update\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/tickets/comment/:comment_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tickets",
+								"comment",
+								":comment_id"
+							],
+							"variable": [
+								{
+									"key": "comment_id",
+									"value": "5ead6d094b3d0f01a4db036c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove comment with ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/tickets/comment/:comment_id",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"tickets",
+								"comment",
+								":comment_id"
+							],
+							"variable": [
+								{
+									"key": "comment_id",
+									"value": "5ead6d094b3d0f01a4db036c"
 								}
 							]
 						}
