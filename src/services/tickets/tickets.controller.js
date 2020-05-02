@@ -3,17 +3,20 @@
  */
 
 const ticketService = require('./tickets.service')
+var passport = require('passport')
+
+const unAuthMsg = 'You are not authorized for this endpoint.';
 
 module.exports = {
     bind: function (server) {
-        server.post('/tickets/create', create)
-        server.get('/tickets', getAll)
-        server.get('/tickets/:id', getById)
-        server.put('/tickets/:id', update)
-        server.delete('/tickets/:id', _delete)
-        server.post('/tickets/:id/comment', createComment)
-        server.put('/tickets/comment/:id', updateComment)
-        server.put('/tickets/comment/:id', deleteComment)
+        server.post('/tickets/create', passport.authenticate('jwt', { session: false }), create)
+        server.get('/tickets', passport.authenticate('jwt', { session: false }), getAll)
+        server.get('/tickets/:id', passport.authenticate('jwt', { session: false }), getById)
+        server.put('/tickets/:id', passport.authenticate('jwt', { session: false }), update)
+        server.delete('/tickets/:id', passport.authenticate('jwt', { session: false }), _delete)
+        server.post('/tickets/:id/comment', passport.authenticate('jwt', { session: false }), createComment)
+        server.put('/tickets/comment/:id', passport.authenticate('jwt', { session: false }), updateComment)
+        server.put('/tickets/comment/:id', passport.authenticate('jwt', { session: false }), deleteComment)
     }
 }
 
@@ -54,7 +57,7 @@ module.exports = {
 function create(req, res, next) {
     ticketService.create(req.body)
         .then(ticket => res.status(201).send(ticket))
-        .catch(err => res.status(422).send({"message": err}))
+        .catch(err => res.status(422).send({ "message": err }))
 }
 
 /**
@@ -92,7 +95,7 @@ function create(req, res, next) {
 function getAll(req, res, next) {
     ticketService.getAll(req.query)
         .then(tickets => res.json(tickets))
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
 
 /**
@@ -126,7 +129,7 @@ function getAll(req, res, next) {
 function getById(req, res, next) {
     ticketService.getById(req.params.id)
         .then(ticket => res.json(ticket))
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
 
 /**
@@ -168,7 +171,7 @@ function getById(req, res, next) {
 function update(req, res, next) {
     ticketService.update(req.params.id, req.body)
         .then(ticket => res.json(ticket))
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
 
 /**
@@ -191,7 +194,7 @@ function update(req, res, next) {
 function _delete(req, res, next) {
     ticketService.delete(req.params.id)
         .then(() => res.status(204).send())
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
 
 /**
@@ -235,7 +238,7 @@ function _delete(req, res, next) {
 function createComment(req, res, next) {
     ticketService.createComment(req.params.id, req.body)
         .then(ticket => res.status(201).send(ticket))
-        .catch(err => res.status(422).send({"message": err}))
+        .catch(err => res.status(422).send({ "message": err }))
 }
 
 /**
@@ -266,10 +269,10 @@ function createComment(req, res, next) {
  *     "message": <reason>
  *   }
  */
-function updateComment(req, res, next){
+function updateComment(req, res, next) {
     projectService.updateApp(req.params.id, req.body)
         .then(app => res.json(app))
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
 
 /**
@@ -289,8 +292,8 @@ function updateComment(req, res, next){
  *     "message": <reason>
  *   }
  */
-function deleteComment(req, res, next){
+function deleteComment(req, res, next) {
     projectService.deleteComment(req.params.id)
         .then(() => res.status(204).send())
-        .catch(err => res.status(404).send({"message": err}))
+        .catch(err => res.status(404).send({ "message": err }))
 }
