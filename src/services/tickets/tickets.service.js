@@ -11,7 +11,8 @@ module.exports = {
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    createComment
 }
 
 async function getAll(query) {
@@ -71,4 +72,37 @@ async function _delete(ticket_id) {
     }
 
     return await Ticket.deleteOne({ '_id': new ObjectId(ticket_id) })
+}
+
+async function createComment(ticket_id, commentParam) {
+    if (!ObjectId.isValid(ticket_id)) {
+        throw 'Provided ticket_id is invalid'
+    }
+
+    const ticket = await Ticket.findOne(new ObjectId(ticket_id))
+
+    if(!ticket){
+        throw 'Ticket with given ID does not exist'
+    }
+
+    ticket.comments.push(ticket.comments.create(commentParam))
+    
+    return await ticket.save()
+}
+
+async function deleteComment(comment_id) {
+    if (!ObjectId.isValid(comment_id)) {
+        throw 'Provided comment_id is invalid'
+    }
+
+    const comment = await Ticket.findOne({'comments._id': new ObjectId(comment_id)})
+
+    if(!comment){
+        throw 'Comment with given ID does not exist'
+    }
+
+    return Ticket.findOne({'comments._id': new ObjectId(app_id)}, function(err, result){
+        result.comments.id(comment_id).remove()
+        result.save()
+    })
 }
