@@ -20,7 +20,7 @@ const ticketSchema = new Schema({
     resolution: { type: String, required: false },
     issue_status: { type: String, required: false },
     creation_date: { type: Date, default: Date.now },
-    updated_date: { type: Date, default: Date.now },
+    update_date: { type: Date, default: Date.now },
     due_date: { type: Date, required: false },
     resolution_date: { type: Date, required: false },
     watches: { type: Number, required: false },

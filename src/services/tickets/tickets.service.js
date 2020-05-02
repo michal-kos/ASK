@@ -64,9 +64,11 @@ async function update(ticket_id, ticketParam, user_id) {
 
     if (!existingTicket) throw 'Ticket not found'
 
-    Object.assign(existingTicket, ticketParam)
+    if (existingTicket.creator_id != user_id) {
+        throw 'You do not have permissions to edit this comment'
+    }
 
-    existingTicket.updated_date = Date.now
+    Object.assign(existingTicket, ticketParam)
 
     return await existingTicket.save()
 }
