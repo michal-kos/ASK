@@ -29,14 +29,12 @@ module.exports = {
                     }
                     // generate a signed json web token with the contents of user object and return it in the response
                     const token = jwt.sign(user, 'your_jwt_secret', {expiresIn: '30s'});
-                    console.log(user)
                     return res.json({user, token});
                 });
             })(req, res, next);
         });
 
         server.get('/auth/test', passport.authenticate('jwt', {session: false}), (req, res) => {
-            console.log(req.user.gidNumber)
             return res.status(200).send({ "user gidNumber: ": req.user.gidNumber })
         })
     }

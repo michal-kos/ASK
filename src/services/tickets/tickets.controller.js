@@ -16,7 +16,7 @@ module.exports = {
         server.delete('/tickets/:id', passport.authenticate('jwt', { session: false }), _delete)
         server.post('/tickets/:id/comment', passport.authenticate('jwt', { session: false }), createComment)
         server.put('/tickets/comment/:id', passport.authenticate('jwt', { session: false }), updateComment)
-        server.put('/tickets/comment/:id', passport.authenticate('jwt', { session: false }), deleteComment)
+        server.delete('/tickets/comment/:id', passport.authenticate('jwt', { session: false }), deleteComment)
     }
 }
 
@@ -55,7 +55,7 @@ module.exports = {
  *   }
  */
 function create(req, res, next) {
-    ticketService.create(req.body)
+    ticketService.create(req.body, req.user)
         .then(ticket => res.status(201).send(ticket))
         .catch(err => res.status(422).send({ "message": err }))
 }
@@ -169,7 +169,7 @@ function getById(req, res, next) {
  *   }
  */
 function update(req, res, next) {
-    ticketService.update(req.params.id, req.body)
+    ticketService.update(req.params.id, req.body, req.user.uidNumber)
         .then(ticket => res.json(ticket))
         .catch(err => res.status(404).send({ "message": err }))
 }
@@ -192,7 +192,7 @@ function update(req, res, next) {
  *   }
  */
 function _delete(req, res, next) {
-    ticketService.delete(req.params.id)
+    ticketService.delete(req.params.id, req.user.uidNumber)
         .then(() => res.status(204).send())
         .catch(err => res.status(404).send({ "message": err }))
 }
@@ -236,7 +236,7 @@ function _delete(req, res, next) {
  *   }
  */
 function createComment(req, res, next) {
-    ticketService.createComment(req.params.id, req.body)
+    ticketService.createComment(req.params.id, req.body, req.user)
         .then(ticket => res.status(201).send(ticket))
         .catch(err => res.status(422).send({ "message": err }))
 }
@@ -270,7 +270,7 @@ function createComment(req, res, next) {
  *   }
  */
 function updateComment(req, res, next) {
-    projectService.updateApp(req.params.id, req.body)
+    ticketService.updateComment(req.params.id, req.body, req.user.uidNumber)
         .then(app => res.json(app))
         .catch(err => res.status(404).send({ "message": err }))
 }
@@ -293,7 +293,7 @@ function updateComment(req, res, next) {
  *   }
  */
 function deleteComment(req, res, next) {
-    projectService.deleteComment(req.params.id)
+    ticketService.deleteComment(req.params.id, req.user.uidNumber)
         .then(() => res.status(204).send())
         .catch(err => res.status(404).send({ "message": err }))
 }

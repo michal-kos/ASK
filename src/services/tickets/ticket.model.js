@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    author: { type: String, required: true },
+    author_id: { type: String, required: true },
     author_display_name: { type: String, required: true },
     body: { type: String, required: true },
     creation_date: { type: Date, default: Date.now }
 }, { id: false });
 
 const ticketSchema = new Schema({
-    reporter: { type: String, required: true, default: function() { return this.creator; } },
     assignee: { type: String, required: false },
-    creator: { type: String, required: true, },
+    creator_id: { type: String, required: true },
+    creator_display_name: { type: String, required: true },
     issue_type: { type: String, required: false },
     summary: { type: String, required: true },
     description: { type: String, required: false },
