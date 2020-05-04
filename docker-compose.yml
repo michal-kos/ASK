@@ -68,6 +68,19 @@ services:
       MONGO_NON_ROOT_PASSWORD: askprojecttest
     volumes:
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/init.sh
+  frontend:
+    stdin_open: true
+    image: aksproject:dev
+    build:
+      context: ./frontend/ask-project
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./frontend/ask-project:/app
+    ports:
+      - '3000:3000'
+    #restart: on-failure
+    #containter_name:
   traefik:
     image: traefik:v2.0
     ports:
