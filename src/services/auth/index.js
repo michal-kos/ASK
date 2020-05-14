@@ -28,14 +28,14 @@ module.exports = {
                         res.send(err);
                     }
                     // generate a signed json web token with the contents of user object and return it in the response
-                    const token = jwt.sign(user, 'your_jwt_secret', {expiresIn: '30s'});
+                    const token = jwt.sign(user, 'your_jwt_secret', {expiresIn: '1h'});
                     return res.json({user, token});
                 });
             })(req, res, next);
         });
 
-        server.get('/auth/test', passport.authenticate('jwt', {session: false}), (req, res) => {
-            return res.status(200).send({ "user gidNumber: ": req.user.gidNumber })
+        server.get('/auth/test'/*, passport.authenticate('jwt', {session: false})*/, (req, res) => {
+            return res.status(200).send({ "user gidNumber: ": "Success"/*req.user.gidNumber*/ })
         })
     }
   }

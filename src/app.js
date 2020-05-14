@@ -7,6 +7,7 @@ require('dotenv').config()
 const express = require('express')
 const dbClient = require('./misc/database')
 const promiseRetry = require('promise-retry')
+var cors = require('cors')
 var bodyParser = require( 'body-parser' )
 
 require('./services/auth/pass.js')
@@ -35,7 +36,7 @@ promiseRetry(function (retry, number) {
   console.log('Database connection successful!');
   const server = express()
   const port = process.env.ASKPROJECT_APP_PORT || 80
-
+  server.use(cors())
   server.use(express.json())
   // const auth = require('./services/auth/index.js')
   // server.use('/auth', auth);
