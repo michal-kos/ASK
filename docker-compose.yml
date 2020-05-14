@@ -47,7 +47,7 @@ services:
       - ask_openldap
       - traefik
     labels:
-      - "traefik.http.routers.taisr.rule=PathPrefix(`/tickets`) || PathPrefix(`/ticket`)"
+      - "traefik.http.routers.askproject.rule=PathPrefix(`/tickets`) || PathPrefix(`/ticket`)"
       - "traefik.enable=true"
     expose:
       - 80
@@ -56,7 +56,7 @@ services:
     environment:
       - ASKPROJECT_RUNNING_SERVICE=auth
     labels:
-      - "traefik.http.routers.taisr2.rule=PathPrefix(`/auth`)"
+      - "traefik.http.routers.askproject2.rule=PathPrefix(`/auth`)"
       - "traefik.enable=true"
   database:
     image: mongo:4.0.9
@@ -68,6 +68,17 @@ services:
       MONGO_NON_ROOT_PASSWORD: askprojecttest
     volumes:
       - ./mongo-init.sh:/docker-entrypoint-initdb.d/init.sh
+  frontend:
+    stdin_open: true
+    image: aksproject:front
+    build:
+      context: ./frontend/ask-project
+      dockerfile: Dockerfile
+    volumes:
+      #- /app/node_modules
+      - ./frontend/ask-project/src:/app/src
+    ports:
+      - '3000:3000'
   traefik:
     image: traefik:v2.0
     ports:
@@ -78,4 +89,4 @@ services:
       - TRAEFIK_ACCESSLOG_FILEPATH=/var/log/access.log
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /tmp/traefik_access.log:/var/log/access.log
+      - /tmp/traefik_access.log:/var/log/access.log\
