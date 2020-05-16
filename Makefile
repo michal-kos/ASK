@@ -2,9 +2,11 @@ SHELL := /bin/bash
 .PHONY: docs
 
 ## Docker images tools...
-
-run:
+up:
 	docker-compose up
+
+down:
+	docker-compose down
 
 build-dev:
 	echo "Building dev image as askproject:dev..."
