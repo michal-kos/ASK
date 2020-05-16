@@ -11,7 +11,11 @@
     "react-scripts": "3.4.1",
     "react-router-dom": "^5.1.2",
     "axios": "^0.19.2",
-    "qs": "^6.9.4"
+    "qs": "^6.9.4",
+    "rxjs": "^6.5.5",
+    "yup": "^0.28.5",
+    "history": "4.10.1",
+    "formik": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
