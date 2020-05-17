@@ -31,14 +31,14 @@ class TicketsPage extends React.Component {
                 <h1>Support ADMIN</h1>
                 <p>This page can only be accessed by support members.</p>
                 <div>
-                    All users from secure (support only) api end point:
-                    {tickets &&
-                        <ul>
-                            {tickets.map(ticket =>
-                                <li key={ticket._id}>{ticket.creator_display_name} {tickets.summary}</li>
-                            )}
-                        </ul>
-                    }
+                    List of all submitted tickets:
+                        {tickets &&
+                            <ul>
+                                {tickets.map(ticket =>
+                                    <li key={ticket._id}>{ticket.summary} {tickets.summary}</li>
+                                )}
+                            </ul>
+                        }
                 </div>
             </div>
             )
@@ -55,20 +55,13 @@ class TicketsPage extends React.Component {
                 </Link> */}
 
                 <a className="btn btn-primary" href="/tickets/create" role="button">Create ticket</a>
-
-                {/* <Router history={history}>
-                    <div>
-                        {currentUser && <Link to="/tickets/create" >Create Ticket</Link> }
-                        <PrivateRoute exact path="/tickets/create" component={TicketCreation} />
-                    </div>
-                </Router> */}
                 
                 <div>
-                    All users from secure (support only) api end point:
+                    List of submitted tickets:
                     {tickets &&
                         <ul>
                             {tickets.map(ticket =>
-                                <li key={ticket._id}>{ticket.creator_display_name} {tickets.summary}</li>
+                                <li key={ticket._id}>{ticket.summary} {tickets.summary}</li>
                             )}
                         </ul>
                     }
@@ -76,22 +69,6 @@ class TicketsPage extends React.Component {
             </div>
             )
         }
-        // return (
-        //     <div>
-        //         <h1>Support</h1>
-        //         <p>This page can only be accessed by support members.</p>
-        //         <div>
-        //             All users from secure (support only) api end point:
-        //             {tickets &&
-        //                 <ul>
-        //                     {tickets.map(ticket =>
-        //                         <li key={ticket._id}>{ticket.creator_display_name} {tickets.summary}</li>
-        //                     )}
-        //                 </ul>
-        //             }
-        //         </div>
-        //     </div>
-        // );
     }
 }
 
