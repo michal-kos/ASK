@@ -71,7 +71,6 @@ class TicketCreation extends React.Component {
                                     setStatus(error);
                                 }
                             );
-                           // this.props.history.push('/tickets');
                     }}
                     render={({ errors, status, touched, isSubmitting }) => (
                         <Form>
