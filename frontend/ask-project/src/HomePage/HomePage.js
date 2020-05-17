@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { userService, authenticationService } from '../_services';
+import { ticketsService, authenticationService } from '../_services';
 
 class HomePage extends React.Component {
     constructor(props) {

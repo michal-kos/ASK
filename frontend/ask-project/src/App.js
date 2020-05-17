@@ -5,8 +5,10 @@ import { history, Role } from './_helpers';
 import { authenticationService } from './_services';
 import { PrivateRoute } from './_components'
 import { HomePage } from './HomePage/HomePage';
+import { TicketsPage } from './TicketsPage/TicketsPage';
 import { SupportPage } from './SupportPage/SupportPage';
 import { LoginPage } from './LoginPage/LoginPage';
+import { TicketCreation } from './TicketCreation/TicketCreation';
 
 //import './App.css';
 
@@ -42,6 +44,7 @@ class App extends React.Component {
                           <div className="navbar-nav">
                               <Link to="/" className="nav-item nav-link">Home</Link>
                               {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
+                              <Link to="/tickets" className="nav-item nav-link">Tickets</Link>
                               <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                           </div>
                       </nav>
@@ -51,6 +54,8 @@ class App extends React.Component {
                           <div className="row">
                               <div className="col-md-6 offset-md-3">
                                   <PrivateRoute exact path="/" component={HomePage} />
+                                  <PrivateRoute exact path="/tickets" component={TicketsPage} />
+                                  <PrivateRoute exact path="/tickets/create" component={TicketCreation} />
                                   <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
                                   <Route path="/login" component={LoginPage} />
                               </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { userService } from '../_services';
+import { ticketService } from '../_services';
 
 class SupportPage extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ class SupportPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getAll().then(tickets => this.setState({ tickets }));
+        ticketService.getAll().then(tickets => this.setState({ tickets }));
     }
 
     render() {
