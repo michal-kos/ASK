@@ -24,8 +24,7 @@ const ticketSchema = new Schema({
     due_date: { type: Date, required: false },
     resolution_date: { type: Date, required: false },
     watches: { type: Number, required: false },
-    time_orginal_estimate: { type: Number, required: false },
-    time_estimate: { type: Number, required: false },
+    time_estimate: { type: String, required: false },
     time_spent: { type: Number, required: false },
     fix_for: { type: Number, required: false },
     comments: [commentSchema]

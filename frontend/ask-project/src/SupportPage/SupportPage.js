@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Router, Route, Link } from 'react-router-dom';
 import { userService } from '../_services';
 
 import TicketList from '../_components/TicketList'
@@ -23,16 +24,25 @@ class SupportPage extends React.Component {
         ));
     }
 
+    handleClick = (id) => {
+        this.setState({tickets: []})
+        // <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
+    }
+
     render() {
         return (
-            <div>
+            <div class="container-fluid">
                 <div>
                     <h1>Support</h1>
                     <p>This page can only be accessed by support members.</p>
                 </div>
                 <div>
                     {
-                        this.state.loading ? <div>loading..</div> : <TicketList tickets={this.state.tickets} />
+                        this.state.loading ? <div>loading..</div> : 
+                        <TicketList
+                         tickets={this.state.tickets} 
+                         handleClick={this.handleClick}
+                         />
                     }
                 </div>
             </div>

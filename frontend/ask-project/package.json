@@ -16,7 +16,8 @@
     "yup": "^0.28.5",
     "history": "4.10.1",
     "formik": "^2.1.4",
-    "styled-components": "5.1.0"
+    "styled-components": "5.1.0",
+    "moment": "2.25.3"
   },
   "scripts": {
     "start": "react-scripts start",
