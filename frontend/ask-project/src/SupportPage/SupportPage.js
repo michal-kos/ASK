@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Router, Route, Link } from 'react-router-dom';
 import { userService } from '../_services';
-
 import TicketList from '../_components/TicketList'
 
 class SupportPage extends React.Component {
@@ -11,13 +9,15 @@ class SupportPage extends React.Component {
 
         this.state = {
             tickets: null,
-            loading: true
+            loading: true,
+            handleClick: props.handleClick
         };
     }
 
     componentDidMount() {
         userService.getAll().then(tickets => (
             this.setState({
+                ...this.state,
                 tickets: tickets,
                 loading: false
             })
@@ -25,8 +25,7 @@ class SupportPage extends React.Component {
     }
 
     handleClick = (id) => {
-        this.setState({tickets: []})
-        // <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
+        this.state.handleClick(id);
     }
 
     render() {
@@ -46,7 +45,6 @@ class SupportPage extends React.Component {
                     }
                 </div>
             </div>
-
         );
     }
 }
