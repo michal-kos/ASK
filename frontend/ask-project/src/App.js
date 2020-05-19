@@ -46,10 +46,10 @@ class App extends React.Component {
                           </div>
                       </nav>
                   }
-                  <div className="jumbotron">
+                  <div>
                       <div className="container">
                           <div className="row">
-                              <div className="col-md-6 offset-md-3">
+                              <div className="container-fluid">
                                   <PrivateRoute exact path="/" component={HomePage} />
                                   <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
                                   <Route path="/login" component={LoginPage} />

@@ -1,47 +1,47 @@
 {
-    "name": "askproject",
-    "version": "1.0.0",
-    "description": "ASK project",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "app": "nodemon src/app.js"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://https://github.com/michal-kos/ASK"
-    },
-    "keywords": [
-      "agh",
-      "ask",
-      "ldap",
-      "web",
-      "app"
-    ],
-    "author": "KM",
-    "license": "ISC",
-    "bugs": {
-      "url": "https://https://github.com/michal-kos/ASK/issues"
-    },
-    "homepage": "https://github.com/michal-kos/ASK#readme",
-    "dependencies": {
-      "bcrypt": "^3.0.6",
-      "dotenv": "^8.1.0",
-      "express": "^4.17.1",
-      "mongodb": "^3.3.2",
-      "mongoose": "^5.7.7",
-      "promise-retry": "^1.1.1",
-      "passport-ldapauth": "^2.1.4",
-      "ldapjs": "^1.0.2",
-      "passport-jwt": "^4.0.0",
-      "passport": "^0.4.1",
-      "jsonwebtoken": "^8.5.1",
-      "body-parser": "1.19.0",
-      "cors": "^2.8.5"
-    },
-    "devDependencies": {
-      "faker": "^4.1.0",
-      "nodemon": "^1.19.3"
-    }
+  "name": "askproject",
+  "version": "1.0.0",
+  "description": "ASK project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://https://github.com/michal-kos/ASK"
+  },
+  "keywords": [
+    "agh",
+    "ask",
+    "ldap",
+    "web",
+    "app"
+  ],
+  "author": "KM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://https://github.com/michal-kos/ASK/issues"
+  },
+  "homepage": "https://github.com/michal-kos/ASK#readme",
+  "dependencies": {
+    "bcrypt": "^3.0.6",
+    "body-parser": "1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^1.0.2",
+    "mongodb": "^3.3.2",
+    "mongoose": "^5.7.7",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-ldapauth": "^2.1.4",
+    "promise-retry": "^1.1.1",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "nodemon": "^1.19.3"
   }
-  
+}
