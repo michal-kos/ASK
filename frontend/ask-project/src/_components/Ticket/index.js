@@ -14,12 +14,16 @@ export default class Ticket extends React.Component {
         };
     }
 
+    componentDidMount() {
+        Moment.locale('pl');
+    }
+
     handleClick() {
 
     }
 
     render() {
-        Moment.locale('pl');
+        
         return (
             <tr onClick={this.state.handleClick}>
                 <td><TicketTypeIcon type={this.state.ticket.type}></TicketTypeIcon></td>

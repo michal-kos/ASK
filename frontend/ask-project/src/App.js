@@ -8,32 +8,32 @@ import { HomePage } from './HomePage/HomePage';
 import { SupportPage } from './SupportPage/SupportPage';
 import { LoginPage } from './LoginPage/LoginPage';
 import { TicketsPage } from './TicketsPage/TicketsPage';
-import { TicketPage } from './TicketPage/TicketPage';
+import TicketPage from './TicketPage/TicketPage';
 import { TicketCreation } from './TicketCreation/TicketCreation';
 
 //import './App.css';
 
 class App extends React.Component {
-  constructor(props) {
-      super(props);
+    constructor(props) {
+        super(props);
 
-      this.state = {
-          currentUser: null,
-          isAdmin: false
-      };
-  }
+        this.state = {
+            currentUser: null,
+            isAdmin: false
+        };
+    }
 
-  componentDidMount() {
-      authenticationService.currentUser.subscribe(x => this.setState({
-          currentUser: x,
-          isAdmin: x && parseInt(x.user.gidNumber) === Role.Admin
-      }));
-  }
+    componentDidMount() {
+        authenticationService.currentUser.subscribe(x => this.setState({
+            currentUser: x,
+            isAdmin: x && parseInt(x.user.gidNumber) === Role.Admin
+        }));
+    }
 
-  logout() {
-      authenticationService.logout();
-      history.push('/login');
-  }
+    logout() {
+        authenticationService.logout();
+        history.push('/login');
+    }
 
   render() {
       const { currentUser, isAdmin } = this.state;
