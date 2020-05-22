@@ -10,6 +10,7 @@ import { LoginPage } from './LoginPage/LoginPage';
 import { TicketsPage } from './TicketsPage/TicketsPage';
 import TicketPage from './TicketPage/TicketPage';
 import { TicketCreation } from './TicketCreation/TicketCreation';
+import { TicketEdit } from './TicketEdit/TicketEdit';
 
 //import './App.css';
 
@@ -57,6 +58,7 @@ class App extends React.Component {
                                   <PrivateRoute exact path="/" component={HomePage} />
                                   <PrivateRoute exact path="/tickets" roles={[Role.User]} component={TicketsPage} />
                                   <PrivateRoute exact path="/ticket/:ticketId" component={TicketPage} />
+                                  <PrivateRoute exact path="/ticket/edit/:ticketId" component={TicketEdit} />
                                   <PrivateRoute exact path="/tickets/create" roles={[Role.User]} component={TicketCreation} />
                                   <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
                                   <Route path="/login" component={LoginPage} />

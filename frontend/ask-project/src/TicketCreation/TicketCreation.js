@@ -5,11 +5,8 @@ import { authenticationService } from '../_services';
 import { Role } from '../_helpers';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-//import DatePicker from '../_components/DatePicker'
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
-import Moment from 'moment';
-
 
 class TicketCreation extends React.Component {
     constructor(props) {
