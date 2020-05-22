@@ -29,11 +29,13 @@ export default class TicketPage extends React.Component {
     }
 
     render() {
+        var path = '/ticket/edit/'+this.state.ticketId
         return (
             <div class="container-fluid">
                 <div>{!this.state.loading &&
                     <div>
-                        <Comment ticketId={this.state.ticket._id} comments={this.state.ticket.comments} />
+                        <a className="btn btn-warning" href={path} role="button">Edit ticket</a>
+                        <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
                     </div>
                 }</div>
             </div>
