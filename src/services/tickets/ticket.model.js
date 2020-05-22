@@ -19,7 +19,6 @@ const ticketSchema = new Schema({
     type: { type: String, required: false },
     summary: { type: String, required: true },
     description: { type: String, required: false },
-    environment: { type: String, required: true },
     priority: { type: String, required: true },
     status: { type: String, default: "backlog" },
     due_date: { type: Date, required: false },

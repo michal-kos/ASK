@@ -6,88 +6,32 @@ import { Role } from '../_helpers';
 import TicketList from '../_components/TicketList'
 import { TicketCreation } from '../TicketCreation/TicketCreation';
 
-class TicketPage extends React.Component {
+export default class TicketPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            tickets: null,
-            loading: true,
-            currentUser: authenticationService.currentUserValue
+            ticketId: props.match.params.ticketId,
+            ticket: null,
+            loading: true
         };
     }
 
     componentDidMount() {
-        const { currentUser } = this.state;
-        ticketService.getAll().then(tickets => (
-            this.setState({ 
-                tickets: tickets,
-                loading: false 
+        ticketService.getById(this.state.ticketId).then(ticket => (
+            this.setState({
+                ...this.state,
+                ticket: ticket,
+                loading: false
             })
         ));
     }
 
-    handleClick = (id) => {
-        this.setState({tickets: []})
-    }
-
     render() {
-        const { tickets, currentUser } = this.state;
-        //const { currentUser/*, userFromApi */} = this.state;
-
-        if(parseInt(currentUser.user.gidNumber) === Role.Admin) {
-            return (
-                <div>
-                <h1>Support ADMIN</h1>
-                <p>This page can only be accessed by support members.</p>
-                {/* <div>
-                    List of all submitted tickets:
-                        {tickets &&
-                            <ul>
-                                {tickets.map(ticket =>
-                                    <li key={ticket._id}>{ticket.summary} {tickets.summary}</li>
-                                )}
-                            </ul>
-                        }
-                </div> */}
-                <div>
-                    {
-                        this.state.loading ? <div>loading..</div> : 
-                        <TicketList
-                         tickets={this.state.tickets} 
-                         handleClick={this.handleClick}
-                         />
-                    }
-                </div>
+        return (
+            <div class="container-fluid">
+                <div>{this.state.loading ? <div>loading..</div> : this.state.ticket.summary}</div>
             </div>
-            )
-        }
-
-        else {
-            return(
-                <div>
-                <h1>Hi, {currentUser.user.cn}!</h1>
-                <p>Here you can browse your tickets. {this.props.match.params.ticketId}</p>
-
-                {/* <Link to="/tickets/create">
-                    <button type="button" class="btn btn-success">Success</button>
-                </Link> */}
-
-                <a className="btn btn-primary" href="/tickets/create" role="button">Create ticket</a>
-                
-                <div>
-                    {
-                        this.state.loading ? <div>loading..</div> : 
-                        <TicketList
-                         tickets={this.state.tickets} 
-                         handleClick={this.handleClick}
-                         />
-                    }
-                </div>
-            </div>
-            )
-        }
+        );
     }
 }
-
-export { TicketPage };

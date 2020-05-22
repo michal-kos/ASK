@@ -5,14 +5,13 @@ import { withRouter } from 'react-router-dom';
 class TicketList extends React.Component {
     constructor(props) {
         super(props);
+        
         this.state = {
-            tickets: props.tickets,
-            handleClick: props.handleClick
+            tickets: props.tickets
         };
     }
 
     handleClick = (id) => {
-        this.state.handleClick(id);
         this.props.history.push('/ticket/'+id)
     }
 
