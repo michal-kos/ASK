@@ -55,7 +55,7 @@ async function create(ticketParam, user) {
     return await ticket.save()
 }
 
-async function update(ticket_id, ticketParam, user_id) {
+async function update(ticket_id, ticketParam, user_id, user_gid) {
     if (!ObjectId.isValid(ticket_id)) {
         throw 'Provided ticket_id is invalid'
     }
@@ -64,7 +64,7 @@ async function update(ticket_id, ticketParam, user_id) {
 
     if (!existingTicket) throw 'Ticket not found'
 
-    if (existingTicket.creator_id != user_id) {
+    if (existingTicket.creator_id != user_id && user_gid!=500) {
         throw 'You do not have permissions to edit this comment'
     }
 

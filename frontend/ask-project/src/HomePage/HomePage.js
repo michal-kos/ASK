@@ -22,7 +22,7 @@ class HomePage extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <p>You're logged in with React & JWT!!</p>
+                <p><h2>Welcome, {currentUser.user.cn}!</h2></p>
                 <p>Your role is: <strong>{currentUser.user.gidNumber}</strong>.</p>
                 <p>This page can be accessed by all authenticated users.</p>
                 {/* <div>

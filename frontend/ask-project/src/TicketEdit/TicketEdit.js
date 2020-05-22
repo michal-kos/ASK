@@ -47,7 +47,7 @@ class TicketEdit extends React.Component {
                         <strong>Normal User</strong> - U: user P: user<br />
                         <strong>Administrator</strong> - U: admin P: admin
                     </div> */}
-                    <h2>New Ticket</h2>
+                    <h2>Edit ticket</h2>
                     <Formik
                         initialValues={{
                             summary: this.state.ticket.summary,
@@ -56,7 +56,8 @@ class TicketEdit extends React.Component {
                             priority: this.state.ticket.priority,
                             type: this.state.ticket.type,
                             assignee: this.state.ticket.assignee,
-                            due_date: Date.parse(this.state.ticket.due_date)//Moment(this.state.ticket.due_date).format("DD/MM/YYYY")
+                            due_date: Date.parse(this.state.ticket.due_date),
+                            status: this.state.ticket.status
                         }}
                         validationSchema={Yup.object().shape({
                             summary: Yup.string().required('Summary is required'),
@@ -66,7 +67,7 @@ class TicketEdit extends React.Component {
                             type: Yup.string().required('Type is required'),
                             assignee: Yup.string().required('Assignee is required'),
                         })}
-                        onSubmit={({ summary, description, environment, priority, type, assignee, due_date}, { setStatus, setSubmitting }) => {
+                        onSubmit={({ summary, description, environment, priority, type, assignee, due_date, status}, { setStatus, setSubmitting }) => {
                             setStatus();
                             var payload = {
                                 "summary": summary,
@@ -75,7 +76,8 @@ class TicketEdit extends React.Component {
                                 "priority": priority,
                                 "type": type,
                                 "assignee": assignee,
-                                "due_date": due_date
+                                "due_date": due_date,
+                                "status": status
                             }
                             //console.log(payload)
                             ticketService.editTicket(payload, this.state.ticketId)
@@ -143,6 +145,16 @@ class TicketEdit extends React.Component {
                                         onChange = {date => setFieldValue('due_date', date)}/>
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor="status">Status</label>
+                                    <Field name="status" as="select" type="text" placeholder="select status" className={'form-control' + (errors.status && touched.status ? ' is-invalid' : '')}>
+                                    <option value="backlog">Backlog</option>
+                                    <option value="selected">Selected</option>
+                                    <option value="inprogress">In Progress</option>
+                                    <option value="done">Done</option>
+                                    </Field>
+                                    <ErrorMessage name="status" component="div" className="invalid-feedback" />
+                                </div>
+                                <div className="form-group">
                                     <button type="submit" className="btn btn-success" disabled={isSubmitting}>Submit</button>
                                     {isSubmitting &&
                                         <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
@@ -154,6 +166,9 @@ class TicketEdit extends React.Component {
                             </Form>
                         )}
                     />
+                    {/* <div class="alert alert-primary" role="alert">
+                        Resolution date: {this.state.ticket.resolution_date != null ? Moment(this.state.ticket.resolution_date).format("DD/MM/YYYY") : "not yet resolved"}
+                    </div> */}
                 </div>
             </div>
 

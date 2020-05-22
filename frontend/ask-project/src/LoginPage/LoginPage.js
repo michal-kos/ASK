@@ -18,8 +18,9 @@ class LoginPage extends React.Component {
         return (
             <div>
                 <div className="alert alert-info">
-                    <strong>Normal User</strong> - U: user P: user<br />
-                    <strong>Administrator</strong> - U: admin P: admin
+                    {/* <strong>Normal User</strong> - U: user P: user<br />
+                    <strong>Administrator</strong> - U: admin P: admin */}
+                    <strong>Ticket Serice login page</strong>
                 </div>
                 <h2>Login</h2>
                 <Formik

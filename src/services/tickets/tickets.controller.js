@@ -169,7 +169,7 @@ function getById(req, res, next) {
  *   }
  */
 function update(req, res, next) {
-    ticketService.update(req.params.id, req.body, req.user.uidNumber)
+    ticketService.update(req.params.id, req.body, req.user.uidNumber, req.user.gidNumber)
         .then(ticket => res.json(ticket))
         .catch(err => res.status(404).send({ "message": err }))
 }
