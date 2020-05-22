@@ -8,7 +8,7 @@ import { HomePage } from './HomePage/HomePage';
 import { SupportPage } from './SupportPage/SupportPage';
 import { LoginPage } from './LoginPage/LoginPage';
 import { TicketsPage } from './TicketsPage/TicketsPage';
-import { TicketPage } from './TicketPage/TicketPage';
+import TicketPage from './TicketPage/TicketPage';
 import { TicketCreation } from './TicketCreation/TicketCreation';
 
 //import './App.css';

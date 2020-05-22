@@ -18,7 +18,7 @@ export default class TicketPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getById(this.state.ticketId).then(ticket => (
+        ticketService.getById(this.state.ticketId).then(ticket => (
             this.setState({
                 ...this.state,
                 ticket: ticket,
@@ -30,7 +30,7 @@ export default class TicketPage extends React.Component {
     render() {
         return (
             <div class="container-fluid">
-                <div>{this.state.lodading ? <div>loading..</div> : this.state.ticket.summary}</div>
+                <div>{this.state.loading ? <div>loading..</div> : this.state.ticket.summary}</div>
             </div>
         );
     }
