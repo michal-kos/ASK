@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const schemaOptions = {
+    id: false,
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
+};
+
 const commentSchema = new Schema({
     author_id: { type: String, required: true },
     author_display_name: { type: String, required: true },
     body: { type: String, required: true },
-    creation_date: { type: Date, default: Date.now }
-}, { id: false });
+}, schemaOptions);
 
 const ticketSchema = new Schema({
     assignee: { type: String, required: false },
@@ -17,14 +21,16 @@ const ticketSchema = new Schema({
     description: { type: String, required: false },
     priority: { type: String, required: true },
     status: { type: String, default: "backlog" },
-    creation_date: { type: Date, default: Date.now },
-    update_date: { type: Date, default: Date.now },
     due_date: { type: Date, required: false },
-
-    //TODO 
-    resolution_date: { type: Date, required: false },
+    resolution_date: { type: Date, default: function() {
+        if (this.status == "done") {
+          return Date.now();
+        }
+        return null;
+      } 
+    },
     comments: [commentSchema]
-}, { id: false });
+}, schemaOptions );
 
 ticketSchema.set('toJSON', { virtuals: true });
 
