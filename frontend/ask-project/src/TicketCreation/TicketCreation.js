@@ -5,6 +5,10 @@ import { authenticationService } from '../_services';
 import { Role } from '../_helpers';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+//import DatePicker from '../_components/DatePicker'
+import DatePicker from "react-datepicker"
+import 'react-datepicker/dist/react-datepicker.css';
+import Moment from 'moment';
 
 
 class TicketCreation extends React.Component {
@@ -42,7 +46,8 @@ class TicketCreation extends React.Component {
                         environment: '',
                         priority: '',
                         type: '',
-                        assignee: ''
+                        assignee: '',
+                        due_date: new Date()
                     }}
                     validationSchema={Yup.object().shape({
                         summary: Yup.string().required('Summary is required'),
@@ -52,7 +57,7 @@ class TicketCreation extends React.Component {
                         type: Yup.string().required('Type is required'),
                         assignee: Yup.string().required('Assignee is required'),
                     })}
-                    onSubmit={({ summary, description, environment, priority, type, assignee}, { setStatus, setSubmitting }) => {
+                    onSubmit={({ summary, description, environment, priority, type, assignee, due_date}, { setStatus, setSubmitting }) => {
                         setStatus();
                         var payload = {
                             "summary": summary,
@@ -60,7 +65,8 @@ class TicketCreation extends React.Component {
                             "environment": environment,
                             "priority": priority,
                             "type": type,
-                            "assignee": assignee
+                            "assignee": assignee,
+                            "due_date": due_date
                         }
                         //console.log(payload)
                         ticketService.createTicket(payload)
@@ -78,7 +84,7 @@ class TicketCreation extends React.Component {
                                 }
                             );
                     }}
-                    render={({ errors, status, touched, isSubmitting }) => (
+                    render={({ errors, status, touched, values, isSubmitting, setFieldValue }) => (
                         <Form>
                             <div className="form-group">
                                 <label htmlFor="summary">Summary</label>
@@ -119,6 +125,13 @@ class TicketCreation extends React.Component {
                                 <label htmlFor="assignee">Assignee</label>
                                 <Field name="assignee" type="text" className={'form-control' + (errors.assignee && touched.assignee ? ' is-invalid' : '')} />
                                 <ErrorMessage name="assignee" component="div" className="invalid-feedback" />
+                            </div>
+                            <div className="form-group">
+                                <div><label htmlFor="due_date">Due date</label></div>                                
+                                <DatePicker 
+                                    name = "due_date"
+                                    selected = {values.due_date}
+                                    onChange = {date => setFieldValue('due_date', date)}/>
                             </div>
                             <div className="form-group">
                                 <button type="submit" className="btn btn-success" disabled={isSubmitting}>Submit</button>
