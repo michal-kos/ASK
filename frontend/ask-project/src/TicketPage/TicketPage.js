@@ -33,8 +33,7 @@ export default class TicketPage extends React.Component {
             <div class="container-fluid">
                 <div>{!this.state.loading &&
                     <div>
-                        {this.state.ticket.summary}
-                        <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
+                        <Comment ticketId={this.state.ticket._id} comments={this.state.ticket.comments} />
                     </div>
                 }</div>
             </div>
