@@ -22,7 +22,6 @@ class TicketEdit extends React.Component {
     }
 
     componentDidMount() {
-        const { currentUser } = this.state;
         Moment.locale("pl")
         ticketService.getById(this.state.ticketId).then(ticket => (
             this.setState({
@@ -107,11 +106,6 @@ class TicketEdit extends React.Component {
                                     <label htmlFor="description">Description</label>
                                     <Field name="description" as="textarea" className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')} />
                                     <ErrorMessage name="description" component="div" className="invalid-feedback" />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="environment">Platform</label>
-                                    <Field name="environment" type="text" className={'form-control' + (errors.environment && touched.environment ? ' is-invalid' : '')} />
-                                    <ErrorMessage name="environment" component="div" className="invalid-feedback" />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="priority">Priority</label>

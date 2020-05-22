@@ -30,7 +30,6 @@ export default class TicketPage extends React.Component {
     }
 
     render() {
-        var path = '/ticket/edit/'+this.state.ticketId
         return (
             <div class="container-fluid">
                 
@@ -38,8 +37,7 @@ export default class TicketPage extends React.Component {
                     <div>
                         <TicketEdit ticketId={this.state.ticket._id} />
                         <h4>Comments</h4>
-                        <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
-
+                        <Comment ticketId={this.state.ticket._id} comments={this.state.ticket.comments} />
                     </div>
                 }</div>
             </div>

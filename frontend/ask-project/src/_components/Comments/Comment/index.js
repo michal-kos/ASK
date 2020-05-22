@@ -2,8 +2,8 @@ import React from 'react';
 import Moment from 'moment';
 import "../Comment/index.css";
 import Button from '../../Button/index';
-import { authenticationService } from '../../../_services';
 
+import { authenticationService } from '../../../_services';
 
 export default class Comment extends React.Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class Comment extends React.Component {
         this.handleMouseHover = this.handleMouseHover.bind(this);
         this.state = {
             isHovering: false,
-            //currentUser: authenticationService.currentUserValue
+            currentUser: authenticationService.currentUserValue
         };
     }
 
@@ -21,13 +21,10 @@ export default class Comment extends React.Component {
     }
 
     handleMouseHover() {
-        this.setState(this.toggleHoverState);
-    }
-
-    toggleHoverState(state) {
-        return {
-            isHovering: !state.isHovering,
-        };
+        this.setState({
+            ...this.state,
+            isHovering: !this.state.isHovering
+        });
     }
 
     editClicked() {
@@ -35,6 +32,8 @@ export default class Comment extends React.Component {
     }
 
     render() {
+        const { currentUser } = this.state;
+
         return (
             <tr
                 onMouseEnter={this.handleMouseHover}
@@ -45,12 +44,11 @@ export default class Comment extends React.Component {
                         <div>{this.props.comment.author_display_name} added a comment - {Moment(this.props.comment.creation_date).format('DD/MMM/YY hh:mm')}</div>
                     </header>
                     <p>{this.props.comment.body}</p>
-
                 </th>
                 <td>
                     {
-                        (this.state.isHovering ) &&
-                        <div class="btn-group btn-group-xs float-right">
+                        this.state.isHovering && (currentUser.user.uidNumber == this.props.comment.author_id) &&
+                         <div class="btn-group btn-group-xs float-right">
                             <Button icon="trash" iconSize={19} variant="danger" onClick={this.props.deleteClicked} />
                         </div>
                     }
