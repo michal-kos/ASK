@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Router, Route, Link } from 'react-router-dom';
-import { userService } from '../_services';
+import { ticketService } from '../_services';
 
 import TicketList from '../_components/TicketList'
 
@@ -16,7 +16,7 @@ class SupportPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getAll().then(tickets => (
+        ticketService.getAll().then(tickets => (
             this.setState({
                 tickets: tickets,
                 loading: false
@@ -26,7 +26,6 @@ class SupportPage extends React.Component {
 
     handleClick = (id) => {
         this.setState({tickets: []})
-        // <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
     }
 
     render() {

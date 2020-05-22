@@ -1,7 +1,8 @@
 import React from 'react';
 import Ticket from './Ticket/index'
+import { withRouter } from 'react-router-dom';
 
-export default class TicketList extends React.Component {
+class TicketList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,6 +13,7 @@ export default class TicketList extends React.Component {
 
     handleClick = (id) => {
         this.state.handleClick(id);
+        this.props.history.push('/ticket/'+id)
     }
 
     render() {
@@ -44,3 +46,5 @@ export default class TicketList extends React.Component {
         );
     }
 }
+
+export default withRouter(TicketList)

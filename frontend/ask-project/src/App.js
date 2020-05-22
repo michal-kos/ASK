@@ -7,6 +7,9 @@ import { PrivateRoute } from './_components'
 import { HomePage } from './HomePage/HomePage';
 import { SupportPage } from './SupportPage/SupportPage';
 import { LoginPage } from './LoginPage/LoginPage';
+import { TicketsPage } from './TicketsPage/TicketsPage';
+import { TicketPage } from './TicketPage/TicketPage';
+import { TicketCreation } from './TicketCreation/TicketCreation';
 
 //import './App.css';
 
@@ -42,6 +45,7 @@ class App extends React.Component {
                           <div className="navbar-nav">
                               <Link to="/" className="nav-item nav-link">Home</Link>
                               {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
+                              <Link to="/tickets" className="nav-item nav-link">Tickets</Link>
                               <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                           </div>
                       </nav>
@@ -51,6 +55,9 @@ class App extends React.Component {
                           <div className="row">
                               <div className="container-fluid">
                                   <PrivateRoute exact path="/" component={HomePage} />
+                                  <PrivateRoute exact path="/tickets" component={TicketsPage} />
+                                  <PrivateRoute exact path="/ticket/:ticketId" component={TicketPage} />
+                                  <PrivateRoute exact path="/tickets/create" component={TicketCreation} />
                                   <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
                                   <Route path="/login" component={LoginPage} />
                               </div>
