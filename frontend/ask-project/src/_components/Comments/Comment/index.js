@@ -2,6 +2,7 @@ import React from 'react';
 import Moment from 'moment';
 import "../Comment/index.css";
 import Button from '../../Button/index';
+import { authenticationService } from '../../../_services';
 
 
 export default class Comment extends React.Component {
@@ -11,6 +12,7 @@ export default class Comment extends React.Component {
         this.handleMouseHover = this.handleMouseHover.bind(this);
         this.state = {
             isHovering: false,
+            //currentUser: authenticationService.currentUserValue
         };
     }
 
@@ -47,7 +49,7 @@ export default class Comment extends React.Component {
                 </th>
                 <td>
                     {
-                        this.state.isHovering &&
+                        (this.state.isHovering ) &&
                         <div class="btn-group btn-group-xs float-right">
                             <Button icon="trash" iconSize={19} variant="danger" onClick={this.props.deleteClicked} />
                         </div>

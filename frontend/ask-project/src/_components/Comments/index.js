@@ -33,7 +33,7 @@ export default class Comments extends React.Component {
                 <table class="table table-hover">
                     <tbody>
                         {
-                            this.state.comments.map(
+                            this.state.comments && this.state.comments.map(
                                 (comment => (
                                     <Comment comment={comment} deleteClicked={() => (this.deleteClicked(comment))} />
                                 ))

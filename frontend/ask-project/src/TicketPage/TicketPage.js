@@ -6,6 +6,7 @@ import { Role } from '../_helpers';
 import TicketList from '../_components/TicketList'
 import { TicketCreation } from '../TicketCreation/TicketCreation';
 import Comment from '../_components/Comments'
+import { TicketEdit } from '../TicketEdit/TicketEdit'
 
 export default class TicketPage extends React.Component {
     constructor(props) {
@@ -32,10 +33,13 @@ export default class TicketPage extends React.Component {
         var path = '/ticket/edit/'+this.state.ticketId
         return (
             <div class="container-fluid">
+                
                 <div>{!this.state.loading &&
                     <div>
-                        <a className="btn btn-warning" href={path} role="button">Edit ticket</a>
+                        <TicketEdit ticketId={this.state.ticket._id} />
+                        <h4>Comments</h4>
                         <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
+
                     </div>
                 }</div>
             </div>
