@@ -8,13 +8,14 @@ export default class Comments extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            ticketId: props.ticketId,
             comments: props.comments,
         };
     }
 
     saveClicked = comment => {
         var self = this;
-        commentService.create(this.props.ticketId, comment).then(ticket => (
+        commentService.create(this.state.ticketId, comment).then(ticket => (
             self.setState({
                 ...self.state,
                 comments: ticket.comments
@@ -23,7 +24,7 @@ export default class Comments extends React.Component {
     }
 
     deleteClicked = comment => {
-        commentService._delete(comment._id).then(() => this.setState({...this.state, comments: this.state.comments.filter(newComment => newComment._id != comment._id)}));
+        commentService._delete(comment._id).then(() => this.setState({ ...this.state, comments: this.state.comments.filter(newComment => newComment._id !== comment._id) }));
     }
 
     render() {
@@ -32,7 +33,11 @@ export default class Comments extends React.Component {
                 <table class="table table-hover">
                     <tbody>
                         {
-                            this.state.comments && this.state.comments.map((comment => (<Comment comment={comment} deleteClicked={() => (this.deleteClicked(comment))}/>)))
+                            this.state.comments.map(
+                                (comment => (
+                                    <Comment comment={comment} deleteClicked={() => (this.deleteClicked(comment))} />
+                                ))
+                            )
                         }
                     </tbody>
                 </table>

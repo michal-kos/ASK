@@ -34,7 +34,6 @@ export default class TicketPage extends React.Component {
             <div class="container-fluid">
                 <div>{!this.state.loading &&
                     <div>
-                        {this.state.ticket.summary}
                         <a className="btn btn-warning" href={path} role="button">Edit ticket</a>
                         <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
                     </div>

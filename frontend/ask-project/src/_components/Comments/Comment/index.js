@@ -48,11 +48,10 @@ export default class Comment extends React.Component {
                 <td>
                     {
                         this.state.isHovering &&
-                        <div class="btn-group btn-group-xs">
-                            <Button icon="trash" iconSize={19} variant="secondary" onClick={this.props.deleteClicked} />
+                        <div class="btn-group btn-group-xs float-right">
+                            <Button icon="trash" iconSize={19} variant="danger" onClick={this.props.deleteClicked} />
                         </div>
                     }
-
                 </td>
             </tr>
         );
