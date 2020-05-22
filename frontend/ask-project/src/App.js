@@ -45,7 +45,7 @@ class App extends React.Component {
                           <div className="navbar-nav">
                               <Link to="/" className="nav-item nav-link">Home</Link>
                               {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
-                              <Link to="/tickets" className="nav-item nav-link">Tickets</Link>
+                              {!isAdmin && <Link to="/tickets" className="nav-item nav-link">Tickets</Link>}
                               <a onClick={this.logout} className="nav-item nav-link">Logout</a>
                           </div>
                       </nav>
@@ -55,9 +55,9 @@ class App extends React.Component {
                           <div className="row">
                               <div className="container-fluid">
                                   <PrivateRoute exact path="/" component={HomePage} />
-                                  <PrivateRoute exact path="/tickets" component={TicketsPage} />
+                                  <PrivateRoute exact path="/tickets" roles={[Role.User]} component={TicketsPage} />
                                   <PrivateRoute exact path="/ticket/:ticketId" component={TicketPage} />
-                                  <PrivateRoute exact path="/tickets/create" component={TicketCreation} />
+                                  <PrivateRoute exact path="/tickets/create" roles={[Role.User]} component={TicketCreation} />
                                   <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
                                   <Route path="/login" component={LoginPage} />
                               </div>

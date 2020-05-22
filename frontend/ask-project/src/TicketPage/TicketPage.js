@@ -5,6 +5,7 @@ import { authenticationService } from '../_services';
 import { Role } from '../_helpers';
 import TicketList from '../_components/TicketList'
 import { TicketCreation } from '../TicketCreation/TicketCreation';
+import Comment from '../_components/Comments'
 
 export default class TicketPage extends React.Component {
     constructor(props) {
@@ -30,7 +31,12 @@ export default class TicketPage extends React.Component {
     render() {
         return (
             <div class="container-fluid">
-                <div>{this.state.loading ? <div>loading..</div> : this.state.ticket.summary}</div>
+                <div>{!this.state.loading &&
+                    <div>
+                        {this.state.ticket.summary}
+                        <Comment ticketId={this.state.ticket._id} comments={this.state.comments} />
+                    </div>
+                }</div>
             </div>
         );
     }

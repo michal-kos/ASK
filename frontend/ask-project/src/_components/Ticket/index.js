@@ -32,7 +32,7 @@ export default class Ticket extends React.Component {
                 <td>{this.state.ticket.creator_display_name}</td>
                 <td><TicketPriorityIcon priority={this.state.ticket.priority} /></td>
                 <td><div class="badge badge-primary">{this.state.ticket.status}</div></td>
-                <td>{Moment(this.state.ticket.creation_date).format('DD/MMM/YY')}</td>
+                <td>{Moment(this.state.ticket.created_at).format('DD/MMM/YY')}</td>
                 <td>{Moment(this.state.ticket.due_date).format('DD/MMM/YY')}</td>
             </tr>
         );

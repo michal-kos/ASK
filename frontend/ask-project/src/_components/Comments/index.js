@@ -2,7 +2,7 @@ import React from 'react';
 
 import Comment from './Comment'
 import CommentForm from './CommentForm'
-import { userService } from '../../_services';
+import { commentService } from '../../_services';
 
 export default class Comments extends React.Component {
     constructor(props) {
@@ -14,7 +14,7 @@ export default class Comments extends React.Component {
 
     saveClicked = comment => {
         var self = this;
-        userService.createComment(this.state.tickets[0]._id, comment).then(ticket => (
+        commentService.create(this.props.ticketId, comment).then(ticket => (
             self.setState({
                 ...self.state,
                 comments: ticket.comments
@@ -23,9 +23,8 @@ export default class Comments extends React.Component {
     }
 
     deleteClicked = comment => {
-        userService.deleteComment(comment._id).then(() => this.setState({...this.state, comments: this.state.comments.filter(newComment => newComment._id != comment._id)}));
+        commentService._delete(comment._id).then(() => this.setState({...this.state, comments: this.state.comments.filter(newComment => newComment._id != comment._id)}));
     }
-
 
     render() {
         return (
@@ -33,7 +32,7 @@ export default class Comments extends React.Component {
                 <table class="table table-hover">
                     <tbody>
                         {
-                            this.state.comments.map((comment => (<Comment comment={comment} deleteClicked={() => (this.deleteClicked(comment))}/>)))
+                            this.state.comments && this.state.comments.map((comment => (<Comment comment={comment} deleteClicked={() => (this.deleteClicked(comment))}/>)))
                         }
                     </tbody>
                 </table>

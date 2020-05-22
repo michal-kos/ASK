@@ -44,8 +44,8 @@ class TicketCreation extends React.Component {
                         summary: '',
                         description: '',
                         environment: '',
-                        priority: '',
-                        type: '',
+                        priority: 'lowest',
+                        type: 'task',
                         assignee: '',
                         due_date: new Date()
                     }}
