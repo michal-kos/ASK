@@ -15,18 +15,14 @@ const ticketSchema = new Schema({
     type: { type: String, required: false },
     summary: { type: String, required: true },
     description: { type: String, required: false },
-    environment: { type: String, required: true },
     priority: { type: String, required: true },
-    resolution: { type: String, required: false },
-    status: { type: String, required: false },
+    status: { type: String, default: "backlog" },
     creation_date: { type: Date, default: Date.now },
     update_date: { type: Date, default: Date.now },
     due_date: { type: Date, required: false },
+
+    //TODO 
     resolution_date: { type: Date, required: false },
-    watches: { type: Number, required: false },
-    time_estimate: { type: String, required: false },
-    time_spent: { type: Number, required: false },
-    fix_for: { type: Number, required: false },
     comments: [commentSchema]
 }, { id: false });
 
