@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { userService } from '../_services';
+import { ticketService } from '../_services';
+import { authenticationService } from '../_services';
+import { Role } from '../_helpers';
+import TicketList from '../_components/TicketList'
+import { TicketCreation } from '../TicketCreation/TicketCreation';
 
 export default class TicketPage extends React.Component {
     constructor(props) {

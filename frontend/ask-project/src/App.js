@@ -7,7 +7,9 @@ import { PrivateRoute } from './_components'
 import { HomePage } from './HomePage/HomePage';
 import { SupportPage } from './SupportPage/SupportPage';
 import { LoginPage } from './LoginPage/LoginPage';
-import TicketPage from './TicketPage/TicketPage'
+import { TicketsPage } from './TicketsPage/TicketsPage';
+import { TicketPage } from './TicketPage/TicketPage';
+import { TicketCreation } from './TicketCreation/TicketCreation';
 
 //import './App.css';
 
@@ -33,38 +35,39 @@ class App extends React.Component {
         history.push('/login');
     }
 
-    handleClick = (id) => {
-        history.push('/admin/' + id);
-    }
-
-    render() {
-        const { currentUser, isAdmin } = this.state;
-        return (
-            <Router history={history}>
-                <div>
-                    {currentUser &&
-                        <nav className="navbar navbar-expand navbar-dark bg-dark">
-                            <div className="navbar-nav">
-                                <Link to="/" className="nav-item nav-link">Home</Link>
-                                {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
-                                <a onClick={this.logout} className="nav-item nav-link">Logout</a>
-                            </div>
-                        </nav>
-                    }
-                    <div>
-                        <div className="container">
-                            <div className="row">
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <PrivateRoute exact path="/admin" roles={[Role.Admin]} component={SupportPage} handleClick={this.handleClick} />
-                                <PrivateRoute exact path="/admin/:ticketId" roles={[Role.Admin]} component={TicketPage} />
-                                <Route path="/login" component={LoginPage} />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Router>
-        );
-    }
+  render() {
+      const { currentUser, isAdmin } = this.state;
+      return (
+          <Router history={history}>
+              <div>
+                  {currentUser &&
+                      <nav className="navbar navbar-expand navbar-dark bg-dark">
+                          <div className="navbar-nav">
+                              <Link to="/" className="nav-item nav-link">Home</Link>
+                              {isAdmin && <Link to="/admin" className="nav-item nav-link">Admin</Link>}
+                              <Link to="/tickets" className="nav-item nav-link">Tickets</Link>
+                              <a onClick={this.logout} className="nav-item nav-link">Logout</a>
+                          </div>
+                      </nav>
+                  }
+                  <div>
+                      <div className="container">
+                          <div className="row">
+                              <div className="container-fluid">
+                                  <PrivateRoute exact path="/" component={HomePage} />
+                                  <PrivateRoute exact path="/tickets" component={TicketsPage} />
+                                  <PrivateRoute exact path="/ticket/:ticketId" component={TicketPage} />
+                                  <PrivateRoute exact path="/tickets/create" component={TicketCreation} />
+                                  <PrivateRoute path="/admin" roles={[Role.Admin]} component={SupportPage} />
+                                  <Route path="/login" component={LoginPage} />
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </Router>
+      );
+  }
 }
 
 export default App;

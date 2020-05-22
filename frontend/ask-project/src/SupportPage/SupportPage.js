@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { userService } from '../_services';
+import { Router, Route, Link } from 'react-router-dom';
+import { ticketService } from '../_services';
+
 import TicketList from '../_components/TicketList'
 
 class SupportPage extends React.Component {
@@ -15,7 +17,7 @@ class SupportPage extends React.Component {
     }
 
     componentDidMount() {
-        userService.getAll().then(tickets => (
+        ticketService.getAll().then(tickets => (
             this.setState({
                 ...this.state,
                 tickets: tickets,

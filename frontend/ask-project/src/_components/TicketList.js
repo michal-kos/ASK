@@ -1,9 +1,6 @@
 import React from 'react';
 import Ticket from './Ticket/index'
-import Comments from './Comments/'
-
-import { withRouter } from 'react-router-dom'
-import { userService } from '../_services';
+import { withRouter } from 'react-router-dom';
 
 class TicketList extends React.Component {
     constructor(props) {
@@ -17,9 +14,8 @@ class TicketList extends React.Component {
 
     handleClick = (id) => {
         this.state.handleClick(id);
+        this.props.history.push('/ticket/'+id)
     }
-
-    
 
     render() {
         return (
@@ -52,4 +48,4 @@ class TicketList extends React.Component {
     }
 }
 
-export default withRouter(TicketList);
+export default withRouter(TicketList)
