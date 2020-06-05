@@ -40,7 +40,6 @@ class TicketCreation extends React.Component {
                     initialValues={{
                         summary: '',
                         description: '',
-                        environment: '',
                         priority: 'lowest',
                         type: 'task',
                         assignee: '',
@@ -49,17 +48,15 @@ class TicketCreation extends React.Component {
                     validationSchema={Yup.object().shape({
                         summary: Yup.string().required('Summary is required'),
                         description: Yup.string().required('Description is required'),
-                        environment: Yup.string().required('Env is required'),
                         priority: Yup.string().required('Priority is required'),
                         type: Yup.string().required('Type is required'),
                         assignee: Yup.string().required('Assignee is required'),
                     })}
-                    onSubmit={({ summary, description, environment, priority, type, assignee, due_date}, { setStatus, setSubmitting }) => {
+                    onSubmit={({ summary, description, priority, type, assignee, due_date}, { setStatus, setSubmitting }) => {
                         setStatus();
                         var payload = {
                             "summary": summary,
                             "description": description,
-                            "environment": environment,
                             "priority": priority,
                             "type": type,
                             "assignee": assignee,
@@ -68,9 +65,9 @@ class TicketCreation extends React.Component {
                         //console.log(payload)
                         ticketService.createTicket(payload)
                             .then(
-                                () => { if (this.isMounted) {
-                                    setSubmitting(false)
-                                }},
+                                // () => { if (this.isMounted) {
+                                //     setSubmitting(false)
+                                // }},
                                 ticket => {
                                     //const { from } = this.props.location.state || { from: { pathname: "/tickets" } };
                                     this.props.history.push('/tickets');
@@ -92,11 +89,6 @@ class TicketCreation extends React.Component {
                                 <label htmlFor="description">Description</label>
                                 <Field name="description" as="textarea" className={'form-control' + (errors.description && touched.description ? ' is-invalid' : '')} />
                                 <ErrorMessage name="description" component="div" className="invalid-feedback" />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="environment">Platform</label>
-                                <Field name="environment" type="text" className={'form-control' + (errors.environment && touched.environment ? ' is-invalid' : '')} />
-                                <ErrorMessage name="environment" component="div" className="invalid-feedback" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="priority">Priority</label>

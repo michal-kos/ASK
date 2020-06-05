@@ -52,7 +52,6 @@ class TicketEdit extends React.Component {
                         initialValues={{
                             summary: this.state.ticket.summary,
                             description: this.state.ticket.description,
-                            environment: this.state.ticket.environment,
                             priority: this.state.ticket.priority,
                             type: this.state.ticket.type,
                             assignee: this.state.ticket.assignee,
@@ -62,17 +61,15 @@ class TicketEdit extends React.Component {
                         validationSchema={Yup.object().shape({
                             summary: Yup.string().required('Summary is required'),
                             description: Yup.string().required('Description is required'),
-                            environment: Yup.string().required('Env is required'),
                             priority: Yup.string().required('Priority is required'),
                             type: Yup.string().required('Type is required'),
                             assignee: Yup.string().required('Assignee is required'),
                         })}
-                        onSubmit={({ summary, description, environment, priority, type, assignee, due_date, status}, { setStatus, setSubmitting }) => {
+                        onSubmit={({ summary, description, priority, type, assignee, due_date, status}, { setStatus, setSubmitting }) => {
                             setStatus();
                             var payload = {
                                 "summary": summary,
                                 "description": description,
-                                "environment": environment,
                                 "priority": priority,
                                 "type": type,
                                 "assignee": assignee,
